@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./resource/js/jquery-3.6.0.min.js"></script>
+    <script src="./resource/bootstrap-5.0.2-dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="./resource/bootstrap-5.0.2-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="./resource/fontawesome-free-5.15.3-web/css/all.css">
+    <link rel="stylesheet" href="./resource/css/style.css">
+    <title>대전 브레드 투어</title>
+</head>
+<body>
+    <header>
+        <div class="pc">
+            <div class="logo">
+                <a href="#"><img src="./resource/img/logo.png" alt="로고" title="대전 브레드 투어"></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">대전 빵집</a></li>
+                    <li><a href="#">스탬프</a></li>
+                    <li><a href="#">할인 이벤트</a></li>
+                    <li><a href="#">마이페이지</a></li>
+                </ul>
+            </nav>
+            <div class="ect">
+                <a href="#" class="login">로그인</a>
+            </div>
+        </div>
+
+        <div class="mobile">
+            <div class="logo">
+                <a href="#"><img src="./resource/img/logo.png" alt="로고" title="대전 브레드 투어"></a>
+            </div>
+            <div class="side">
+                <input type="checkbox" name="side" id="side" hidden>
+
+                <label for="side" class="ham">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+
+                <div class="m__menu">
+                    <label for="side"></label>
+                    <div class="box">
+                        <div class="item">
+                            <a href="#">로그인</a>
+                        </div>
+                        <div class="item">
+                            <a href="#">대전 빵집</a>
+                        </div>
+                        <div class="item">
+                            <a href="#">스탬프</a>
+                        </div>
+                        <div class="item">
+                            <a href="#">할인 이벤트</a>
+                        </div>
+                        <div class="item">
+                            <a href="#">마이페이지</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <div class="background">
+            <img src="./resource/img/8.jpg" alt="배경 이미지" title="배경">
+            <div class="text">스탬프</div>
+        </div>
+
+        <div class="container my-5">
+            <div class="issued">
+                <div class="box">
+                    <div class="left">
+                        <h3><span class="line" style="margin-right: 10px;"></span> 카드 발급</h3>
+                        <button class="btn btn-primary downOpen">다운로드</button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="download" tabindex="-1" aria-labelledby="downloadLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="downloadLabel">이름 입력</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="text" name="cardName" id="cardName" class="form-control" placeholder="이름을 입력해주세요.">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                        <a href="#" class="btn btn-primary card-d" download="stamp_card.png">완료</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <img src="./resource/img/stamp/stamp.png" alt="스탬프카드" title="스탬프카드">
+                    </div>
+                </div>
+
+                <canvas class="cardCopy" width="432" height="288" hidden></canvas>
+            </div>
+
+            <div class="stamp mt-5">
+                <h3><span class="line" style="margin-right: 10px;"></span>스탬프 찍기</h3>
+                <div class="box">
+                    <input type="text" class="form-control my-3 codeInput" placeholder="코드를 입력해주세요.">
+                    
+                    <button class="btn btn-primary cardOpen">완료</button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="stampCard" tabindex="-1" aria-labelledby="stampCardLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="stampCardLabel">카드 선택</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="file" name="cardSelect" id="cardSelect" class="form-contorl" accept="image/png">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <canvas class="stampview" width="432" height="288" hidden></canvas>
+                </div>
+            </div>
+
+            <div class="cardEvent mt-5">
+                <h3><span class="line" style="margin-right: 10px;"></span>이벤트 참여</h3>
+                <button class="btn btn-primary cardSel">카드 선택</button>
+
+                <div class="box">
+                    <span class="line"></span>
+                    <canvas id="graph" width="1000" height="750"></canvas>
+                </div>
+                <canvas class="eventCanvas" width="432" height="288" hidden></canvas>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark">
+        <div class="container">
+            <div class="logo">
+                <img src="./resource/img/logo.png" alt="로고" title="로고">
+            </div>
+            <div class="text">
+                <div class="navi mb-2">
+                    <a href="#">이용안내</a>
+                    <a href="#">개인정보 처리방침</a>
+                    <a href="#">저작권 보호정책</a>
+                    <a href="#">도로명 주소안내</a>
+                    <a href="#">사이트오류 신고</a>
+                </div>
+                <p class="text-center" style="color: #ddd; margin: 0;">전라남도 여수시 여문2로 148 
+                <br>COPYRIGHTⓒ 2021 Daejeon Bakery Merchants Association</p>
+            </div>
+            <div class="sns">
+                <a href="#"><i class="fab fa-facebook-square"></i></a>
+                <a href="#"><i class="fab fa-twitter-square"></i></a>
+                <a href="#"><i class="fab fa-instagram-square"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./resource/js/stamp.js"></script>
+</body>
+</html>
