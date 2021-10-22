@@ -17,8 +17,8 @@
                 </div>
 
                 <div class="searchbar">
-                    <input type="text" class="form-control me-3" name="searchbar" id="searchbar" placeholder="검색">
-                    <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                    <input onkeyup="enterKey();" type="text" class="form-control me-3" name="searchbar" id="searchbar" placeholder="검색">
+                    <button class="btn btn-primary searchBtn"><i class="fas fa-search"></i></button>
                 </div>
 
             </div>
@@ -50,7 +50,7 @@
                             </p>
                             <p class="card-text">042-483-1595</p>
                             <p class="card-text">동구 가양2동</p>
-                        </div>//
+                        </div>
                     </div>
                     <div class="card">
                         <img src="./resource/img/bestshop/3.jpg" class="card-img-top" alt="빵집 이미지" title="빵집">
@@ -208,3 +208,4 @@
             </div>
         </div>
     </section>
+    <script src="./resource/js/search.js"></script>

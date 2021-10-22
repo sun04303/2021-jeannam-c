@@ -89,6 +89,7 @@ header nav li:not(header nav li:last-child) {margin-right: 30px;}
 header .ect {
     width: 200px;
     text-align: center;
+    color: #fff;
 }
 
 header .mobile {

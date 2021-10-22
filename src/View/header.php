@@ -19,14 +19,19 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="#">대전 빵집</a></li>
-                    <li><a href="#">스탬프</a></li>
+                    <li><a href="/sub">대전 빵집</a></li>
+                    <li><a href="/stamp">스탬프</a></li>
                     <li><a href="#">할인 이벤트</a></li>
                     <li><a href="#">마이페이지</a></li>
                 </ul>
             </nav>
             <div class="ect">
-                <a href="#" class="login">로그인</a>
+                <?php if(isset($_SESSION['user'])) : ?>
+                    <span style="margin-right:20px;"><?= $_SESSION['user']->name?>(<?= $_SESSION['user']->type ?>)</span>
+                    <a href="/logout">로그아웃</a>
+                <?php else : ?>
+                    <a href="/login" class="login">로그인</a>
+                <?php endif; ?>
             </div>
         </div>
 

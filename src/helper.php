@@ -13,3 +13,11 @@
         echo "</script>";
         exit;
     }
+
+    function back($msg) {
+        echo "<script>";
+        echo "alert('$msg');";
+        echo "history.back()";
+        echo "</script>";
+        exit;
+    }

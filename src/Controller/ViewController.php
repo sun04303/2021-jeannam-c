@@ -12,4 +12,8 @@
         static function stamp() {
             view('stamp');
         }
+
+        static function login() {
+            view('login');
+        }
     }
