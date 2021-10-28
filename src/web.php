@@ -5,6 +5,7 @@
     Route::get('/sub', "ViewController@sub");
     Route::get('/stamp', "ViewController@stamp");
     Route::get('/login', "ViewController@login");
+    Route::get('/order', 'ViewController@order');
 
     Route::post('/login', "ActionController@login");
     Route::get('/logout', 'ActionController@logout');

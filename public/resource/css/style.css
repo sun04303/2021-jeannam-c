@@ -1271,15 +1271,15 @@ footer .sns a {
 .bestshop {margin-bottom: 80px;}
 
 .bestshop .list {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(19%, auto));
+    column-gap: 1%;
 }
 
 .bestshop .card {
     border: none;
-    width: 19%;
     box-shadow: 0 2px 5px #000;
+    color: #000;
 }
 
 .bestshop .card img {
@@ -1309,15 +1309,16 @@ footer .sns a {
     gap: 20px;
 }
 
-.shoplist .box > div {
+.shoplist .box > a {
     padding: 0;
     border-radius: 10px;
     box-shadow: 0 1px 5px #000;
+    color: #000;
 
     display: flex;
 }
 
-.shoplist .box > div > div {
+.shoplist .box > a > div {
     padding: 24px;
     width: 50%;
 }
@@ -1358,4 +1359,40 @@ footer .sns a {
 
 #graph {
     transition: 1s;
+}
+
+/* 주문하기 */
+
+.store_info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.store_info > *  {
+    width: 50%;
+}
+
+.store_info .text {
+    padding: 50px;
+    font-size: 18px;
+}
+
+.order_table {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(32%, auto));
+    column-gap: 1%;
+}
+
+.order_table .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.order_table .item img {
+    width: 90%;
+}
+
+.order_table .item p {
+    font-size: 18px;
 }

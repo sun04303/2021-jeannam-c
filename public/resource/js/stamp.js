@@ -14,7 +14,6 @@ fetch('./resource/js/code.json')
 .then(res => res.json())
 .then(data => {
     code = data
-    console.log(code)
 })
 
 fetch('./resource/js/product.json')
