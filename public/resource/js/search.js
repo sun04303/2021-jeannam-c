@@ -89,7 +89,7 @@ function mkStar(num) {
             star += `<i class="fas fa-star-half-alt"></i>`
         } else star += `<i class="far fa-star"></i>`
 
-        re-=1
+        re--
     }
 
     return star
