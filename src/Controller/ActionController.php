@@ -74,4 +74,25 @@
 
             echo json_encode($list);
         }
+
+        static function orderok() {
+            $list = $_POST['a'];
+            $id = $_POST['id'];
+
+            $cnt = 0;
+            $price = 0;
+
+            DB::query("INSERT INTO deliveries (store_id, orderer_id) VALUES (?, ?)", [$id, $_SESSION['user']->id]);
+            $last_id = DB::fetch("SELECT id FROM deliveries ORDER BY id DESC LIMIT 1");
+            $last_id=$last_id->id;
+            
+            foreach($list as $item) {
+                DB::query("INSERT INTO delivery_items (delivery_id, bread_id, price, cnt) VALUES (?, ?, ?, ?)", [$last_id, $item["id"], $item["price"], $item["cnt"]]);
+                $cnt+=(int)$item["cnt"];
+                $price+=(int)$item["cnt"] * (int)$item["price"];
+            }
+
+            $msg = "총 ".$cnt."개, ".number_format($price)."원이 주문되었습니다";
+            go($msg, '/');
+        }
     }
