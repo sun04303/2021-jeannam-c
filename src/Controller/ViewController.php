@@ -19,6 +19,7 @@
         }
 
         static function order() {
+            if(!isset($_SESSION['user'])) go('로그인 해주세요', '/login');
             $id = $_GET['shop'];
             $shop = DB::fetch("SELECT s.*, IFNULL(score, 0) grade, IFNULL(SUM(cnt), 0) cnt, IFNULL(reviewcnt, 0) reviewcnt, l.borough, l.name AS dong FROM
                                (SELECT * FROM stores WHERE id = ?) AS s 
@@ -30,5 +31,27 @@
                                GROUP BY s.name ORDER BY cnt DESC, name", [$id]);
             $list = DB::fetchAll("SELECT * FROM breads WHERE store_id = ?", [$id]);
             view('order', $shop, $list);
+        }
+
+        static function mypage() {
+            if(!isset($_SESSION['user'])) go("로그인 해주세요", '/login');
+
+            $type = $_SESSION['user']->type;
+
+            switch ($type) {
+                case 'owner':
+                    
+                    break;
+                
+                case 'rider':
+                    # code...
+                    break;
+
+                case 'normal':
+                    $list = DB::fetchAll("SELECT * FROM deliveries WHERE orderer_id = ?", [$_SESSION['user']->id]);
+                    break;
+            }
+
+            view("mypage");
         }
     }

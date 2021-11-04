@@ -93,6 +93,6 @@
             }
 
             $msg = "총 ".$cnt."개, ".number_format($price)."원이 주문되었습니다";
-            go($msg, '/');
+            echo $msg;
         }
     }

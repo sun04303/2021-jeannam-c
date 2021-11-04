@@ -19,6 +19,11 @@ $('#order_ok').on('click', e => {
             data : {
                 a:data,
                 id : document.querySelector('input[name="store_id"]').value
+            },
+            success : res => {
+                console.log(res)
+                alert(res);
+                location.href = "/"
             }
         })
     }

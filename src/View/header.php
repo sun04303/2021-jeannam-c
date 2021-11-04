@@ -22,7 +22,7 @@
                     <li><a href="/sub">대전 빵집</a></li>
                     <li><a href="/stamp">스탬프</a></li>
                     <li><a href="#">할인 이벤트</a></li>
-                    <li><a href="#">마이페이지</a></li>
+                    <li><a href="/mypage">마이페이지</a></li>
                 </ul>
             </nav>
             <div class="ect">
