@@ -23,7 +23,7 @@ $('#order_ok').on('click', e => {
             success : res => {
                 console.log(res)
                 alert(res);
-                location.href = "/"
+                location.href = "/mypage"
             }
         })
     }

@@ -1420,3 +1420,26 @@ footer .sns a {
 }
 
 #order_ok i {font-size: 20px;}
+
+/* 마이페이지 */
+
+.my_page .rider .my_info .mid {
+    display: flex;
+    justify-content: space-around;
+}
+
+.my_page .rider .my_info .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.my_page .rider .my_info .item i {
+    font-size: 48px;
+}
+
+.my_page .rider .my_info .item label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

@@ -27,7 +27,7 @@
             </nav>
             <div class="ect">
                 <?php if(isset($_SESSION['user'])) : ?>
-                    <span style="margin-right:20px;"><?= $_SESSION['user']->name?>(<?= $_SESSION['user']->type ?>)</span>
+                    <span class="user_type" style="margin-right:20px;"><?= $_SESSION['user']->name?>(<?= $_SESSION['user']->type ?>)</span>
                     <a href="/logout">로그아웃</a>
                 <?php else : ?>
                     <a href="/login" class="login">로그인</a>
