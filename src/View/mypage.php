@@ -23,10 +23,15 @@
                     <tbody>
                         <?php foreach($list as $item) : ?>
                             <tr>
-                                <td class="bn"><?= $item->name ?></td>
+                                <td class="bn"><?= $item->sn ?></td>
                                 <td class="rn"><?= is_null($item->driver_id) ? '-' : $item->driver_id ?></td>
-                                <td class="et"><?= is_null($item->driver_id) ? '-' : $item->driver_id ?></td>
-                                <td class="st"><?= $item->state ?></td>
+                                <td class="et">
+                                    <?php 
+                                        $time = floor((((int)$item->rtos + (int)$item->stou) / ($item->dt == "bike" ? 15 : 50)) * 60);
+                                        echo $time > 0 ? $time.'분 소요' : "-";
+                                    ?>
+                                </td>
+                                <td class="st"><?= $item->state == "order" ? "대기 중" : ($item->state == "taking" ? "배달 중" : "배달 완료") ?></td>
                                 <td><?= $item->bn ?></td>
                                 <td><?= $item->sale == 0 ? $item->price : ceil((int)$item->price - (((int)$item->price*0.01)*(int)$item->sale)) ?></td>
                                 <td><?= $item->cnt ?></td>
@@ -36,7 +41,24 @@
                     </tbody>
                 </table>
             <?php elseif($_SESSION['user']->type == "owner") : ?>
+                <div class="owner row">
+                    <div class="order_view col-8">
+                        <h3 class="my-5">주문 조회</h3>
+                    </div>
 
+                    <div class="menu col-4">
+                        <h3 class="my-5">메뉴 관리</h3>
+                        <?php foreach($list as $item) : ?>
+                            <div><?= $item->name ?></div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+
+                <?php 
+                    echo "<pre>";
+                    var_dump($list1);
+                    echo "</pre>";
+                ?>
             <?php else : ?>
                 <div class="rider row">
                     <div class="my_info col-3">
@@ -44,7 +66,7 @@
                         <div class="box">
                             <div class="left mb-5">
                                 <h4>내 위치</h4>
-                                <select class="form-select" name="location" id="location">
+                                <select class="form-select rider_location" name="location" id="location">
                                     <?php foreach($list as $item) : ?>
                                         <?php if($_SESSION['user']->location_id == $item->id) : ?>
                                             <option value="<?= $item->id ?>" selected><?= $item->borough." ".$item->name ?></option>
@@ -58,24 +80,25 @@
                                 <h4 class="mb-4">이동수단</h4>
                                 <div class="mid">
                                     <div class="item">
-                                        <label for="moto"><i class="fas fa-bicycle"></i>자전거</label>
-                                        <input class="form-check-input" type="radio" name="transfort" id="moto" <?= $_SESSION['user']->transportation == "bike" ? "" : "checked" ?>>
+                                        <label for="bike"><i class="fas fa-bicycle"></i>자전거</label>
+                                        <input class="form-check-input" value="bike" type="radio" name="transport" id="bike" <?= $_SESSION['user']->transportation == "bike" ? "checked" : "" ?>>
                                     </div>
 
                                     <item class="item">
-                                        <label for="bike"><i class="fas fa-motorcycle"></i>오토바이</label>
-                                        <input class="form-check-input" type="radio" name="transfort" id="bike" <?= $_SESSION['user']->transportation == "bike" ? "checked" : "" ?>>
+                                        <label for="motorcycle"><i class="fas fa-motorcycle"></i>오토바이</label>
+                                        <input class="form-check-input" value="motorcycle" type="radio" name="transport" id="motorcycle" <?= $_SESSION['user']->transportation == "bike" ? "" : "checked" ?>>
                                     </item>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="order_list col-9">
+                    <div class="order_list col-9 mb-5">
                         <h3 class="my-5">배달 리스트</h3>
                         <table class="table text-center" style="vertical-align:middle;">
                             <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>빵집 이름</th>
                                     <th>빵집 주소</th>
                                     <th>배달 주소</th>
@@ -89,25 +112,20 @@
                             <tbody>
                                 <?php foreach($list1 as $item) : ?>
                                     <tr>
-                                        <td><?= $item->storename ?></td>
-                                        <td><?= $item->storeb." ".$item->storen ?></td>
-                                        <td><?= $item->userb." ".$item->usern ?></td>
-                                        <td>asd</td>
+                                        <td class="delid"> <?= $item->delid ?></td>
+                                        <td class="sn"><?= $item->storename ?></td>
+                                        <td class="sa"><?= $item->storeb." ".$item->storen ?></td>
+                                        <td class="da"><?= $item->userb." ".$item->usern ?></td>
+                                        <td class="at"><?= floor((((int)$item->rtos + (int)$item->stou) / ($_SESSION['user']->transportation == "bike" ? 15 : 50)) * 60) > 0 ? floor((((int)$item->rtos + (int)$item->stou) / ($_SESSION['user']->transportation == "bike" ? 15 : 50)) * 60).'분 소요' : "-" ?></td>
                                         <td><?= $item->bn ?></td>
                                         <td><?= $item->price ?></td>
                                         <td><?= $item->cnt ?></td>
-                                        <td><button class="btn btn-promary">수락</button></td>
+                                        <td class="st"><button class="btn btn-promary" data-id="<?= $item->delid ?>"><?= $item->state == "accept" ? "수락" : ($item->state == "taking" ? "완료" : "완료한 배달") ?></button></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
-
-                    <?php 
-                        echo "<pre>";
-                        var_dump($list1);
-                        echo "</pre>";
-                    ?>
                 </div>
             <?php endif; ?>
         </div>

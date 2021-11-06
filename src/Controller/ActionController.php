@@ -95,4 +95,31 @@
             $msg = "총 ".$cnt."개, ".number_format($price)."원이 주문되었습니다";
             echo $msg;
         }
+
+        static function uplocation() {
+            $location = $_POST['location'];
+            $id = $_SESSION['user']->id;
+
+            DB::query("UPDATE users SET location_id = ? WHERE id = ?", [$location, $id]);
+            $_SESSION['user'] = DB::fetch("SELECT * FROM users WHERE id = ?", [$id]);
+        }
+
+        static function uptransport() {
+            $transport = $_POST['transport'];
+            $id = $_SESSION['user']->id;
+
+            DB::query("UPDATE users SET transportation = ? WHERE id = ?", [$transport, $id]);
+            $_SESSION['user'] = DB::fetch("SELECT * FROM users WHERE id = ?", [$id]);
+        }
+
+        static function uprstate() {
+            $msg = $_POST['msg'];
+            $id = $_POST['id'];
+            
+            if($msg == "수락") {
+                DB::query("UPDATE deliveries SET state = 'taking', driver_id = ?, taking_at = ? WHERE id = ?", [$_SESSION['user']->id, date("Y-m-d H:i:s"), $id]);
+            } elseif($msg == "완료") {
+                DB::query("UPDATE deliveries SET state = 'complete' WHERE id = ?", [$id]);
+            }
+        }
     }

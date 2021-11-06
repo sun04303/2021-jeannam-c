@@ -12,5 +12,8 @@
     Route::get('/logout', 'ActionController@logout');
     Route::post('/search', 'ActionController@search');
     Route::post('/orderok', 'ActionController@orderok');
+    Route::post('/uprstate', "ActionController@uprstate");
+    Route::post("/uplocation", "ActionController@uplocation");
+    Route::post("/uptransport", "ActionController@uptransport");
 
     Route::start();
