@@ -1443,3 +1443,12 @@ footer .sns a {
     flex-direction: column;
     align-items: center;
 }
+
+.my_page .owner .menu .box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.my_page .owner .menu img {
+    width: 100%;
+}

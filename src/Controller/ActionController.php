@@ -122,4 +122,9 @@
                 DB::query("UPDATE deliveries SET state = 'complete' WHERE id = ?", [$id]);
             }
         }
+
+        static function upsstate() {
+            $msg = $_POST['msg'];
+            $id = $_POST['id'];
+        }
     }

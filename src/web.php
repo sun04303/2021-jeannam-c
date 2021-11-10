@@ -13,6 +13,7 @@
     Route::post('/search', 'ActionController@search');
     Route::post('/orderok', 'ActionController@orderok');
     Route::post('/uprstate', "ActionController@uprstate");
+    Route::post('/upsstate', "ActionController@upsstate");
     Route::post("/uplocation", "ActionController@uplocation");
     Route::post("/uptransport", "ActionController@uptransport");
 

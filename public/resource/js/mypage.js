@@ -53,7 +53,6 @@ window.addEventListener('load', e => {
                 }
             });
     
-    
             document.querySelector('.rider_location').addEventListener('change', e=> {
                 $.ajax({
                     url:`/uplocation`,
@@ -85,7 +84,6 @@ window.addEventListener('load', e => {
     
             document.querySelectorAll('.st').forEach(item => {
                 item.addEventListener('click', e => {
-                    console.log(e.target.dataset.id)
                     $.ajax({
                         url : `/uprstate`,
                         method : 'post',
@@ -101,6 +99,50 @@ window.addEventListener('load', e => {
             })
             break;
     
+        case 'owner' : 
+            $(`.delid`).each(function() {
+                let rows = $(`.delid:contains('` + $(this).text() + "')");
+                let idx1 = rows.siblings('.or')
+                let idx2 = rows.siblings('.oa')
+                let idx3 = rows.siblings('.di')
+                let idx4 = rows.siblings('.at')
+                let idx5 = rows.siblings('.st')
+
+                if (rows.length > 1) {
+                    rows.eq(0).attr("rowspan", rows.length);
+                    idx1.eq(0).attr("rowspan", rows.length);
+                    idx2.eq(0).attr("rowspan", rows.length);
+                    idx3.eq(0).attr("rowspan", rows.length);
+                    idx4.eq(0).attr("rowspan", rows.length);
+                    idx5.eq(0).attr("rowspan", rows.length);
+
+                    rows.not(":eq(0)").remove();
+                    idx1.not(":eq(0)").remove();
+                    idx2.not(":eq(0)").remove();
+                    idx3.not(":eq(0)").remove();
+                    idx4.not(":eq(0)").remove();
+                    idx5.not(":eq(0)").remove();
+                }
+            });
+
+            document.querySelectorAll('.stb').forEach(item => {
+                item.addEventListener('click', e => {
+                    $.ajax({
+                        url : `/upsstate`,
+                        method : 'post',
+                        data : {
+                            msg : e.target.innerHTML,
+                            id : e.target.dataset.id
+                        },
+                        success : () => {
+                            location.reload()
+                        }
+                    })
+                })
+            })
+
+            break
+        
         default:
             break;
     }

@@ -26,9 +26,14 @@
                                 <td class="bn"><?= $item->sn ?></td>
                                 <td class="rn"><?= is_null($item->driver_id) ? '-' : $item->driver_id ?></td>
                                 <td class="et">
-                                    <?php 
-                                        $time = floor((((int)$item->rtos + (int)$item->stou) / ($item->dt == "bike" ? 15 : 50)) * 60);
-                                        echo $time > 0 ? $time.'분 소요' : "-";
+                                    <?php
+                                        if($item->state == 'taking') {
+                                            $dis = (int)$item->rtos + (int)$item->stou;
+                                            $type = $item->dt == "bike" ? 15 : 50;
+                                            echo floor(($dis / $type) * 60) > 0 ? floor(($dis / $type) * 60).'분 소요' : "-";
+                                        } else {
+                                            echo "-";
+                                        }
                                     ?>
                                 </td>
                                 <td class="st"><?= $item->state == "order" ? "대기 중" : ($item->state == "taking" ? "배달 중" : "배달 완료") ?></td>
@@ -44,21 +49,77 @@
                 <div class="owner row">
                     <div class="order_view col-8">
                         <h3 class="my-5">주문 조회</h3>
+                        <table class="table text-center" style="vertical-align:middle;">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>주문자</th>
+                                    <th>배달 주소</th>
+                                    <th>라이더 이름</th>
+                                    <th>도착 예정 시간</th>
+                                    <th>상품</th>
+                                    <th>가격</th>
+                                    <th>수량</th>
+                                    <th>주문 상태</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($list1 as $item) : ?>
+                                    <tr>
+                                        <td class="delid"> <?= $item->delid ?></td>
+                                        <td class="or"><?= $item->orderer_id ?></td>
+                                        <td class="oa"><?= $item->userb." ".$item->usern ?></td>
+                                        <td class="di"><?= is_null($item->driver_id) ? "-" : $item->driver_id ?></td>
+                                        <td class="at">
+                                            <?php
+                                                if($item->state == 'taking') {
+                                                    $dis = (int)$item->rtos + (int)$item->stou;
+                                                    $type = $item->transportation == "bike" ? 15 : 50;
+                                                    echo floor(($dis / $type) * 60) > 0 ? floor(($dis / $type) * 60).'분 소요' : "-";
+                                                } else {
+                                                    echo "-";
+                                                }
+                                            ?>
+                                        </td>
+                                        <td><?= $item->bn ?></td>
+                                        <td><?= $item->price ?></td>
+                                        <td><?= $item->cnt ?></td>
+                                        <td class="st">
+                                            <?php if($item->state == "order") : ?>
+                                                <button data-id="<?= $item->delid ?>" class="stb btn btn-primary">수락</button>
+                                                <button data-id="<?= $item->delid ?>" class="stb btn btn-danger">거절</button>
+                                            <?php elseif($item->state == "reject") : ?>
+                                                거절한 주문
+                                            <?php elseif($item->state == "accept") : ?>
+                                                수락한 주문
+                                            <?php elseif($item->state == "taking") : ?>
+                                                배달 중
+                                            <?php else : ?>
+                                                배달 완료
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
                     </div>
 
                     <div class="menu col-4">
                         <h3 class="my-5">메뉴 관리</h3>
-                        <?php foreach($list as $item) : ?>
-                            <div><?= $item->name ?></div>
-                        <?php endforeach; ?>
+                        <div class="box">
+                            <?php foreach($list as $item) : ?>
+                                <img src="./resource<?= $item->image ?>" alt="빵" title="빵">
+                                <div><?= $item->name ?></div>
+                            <?php endforeach; ?>
+                        </div>
+
+                        <?php 
+                            echo "<pre>";
+                            var_dump($list);
+                            echo "</pre>";
+                        ?>
                     </div>
                 </div>
-
-                <?php 
-                    echo "<pre>";
-                    var_dump($list1);
-                    echo "</pre>";
-                ?>
             <?php else : ?>
                 <div class="rider row">
                     <div class="my_info col-3">
