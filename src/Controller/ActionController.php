@@ -126,5 +126,11 @@
         static function upsstate() {
             $msg = $_POST['msg'];
             $id = $_POST['id'];
+
+            if($msg == "수락") {
+                DB::query("UPDATE deliveries SET state = 'accept' WHERE id = ?", [$id]);
+            } elseif($msg == "거절") {
+                DB::query("UPDATE deliveries SET state = 'reject' WHERE id = ?", [$id]);
+            }
         }
     }

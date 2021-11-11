@@ -106,10 +106,12 @@
 
                     <div class="menu col-4">
                         <h3 class="my-5">메뉴 관리</h3>
-                        <div class="box">
+                        <div class="box design_bar">
                             <?php foreach($list as $item) : ?>
-                                <img src="./resource<?= $item->image ?>" alt="빵" title="빵">
-                                <div><?= $item->name ?></div>
+                                <div class="item">
+                                    <img src="./resource<?= $item->image ?>" alt="빵" title="빵">
+                                    <div><?= $item->name ?></div>
+                                </div>
                             <?php endforeach; ?>
                         </div>
 
