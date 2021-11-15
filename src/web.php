@@ -11,6 +11,7 @@
     Route::post('/login', "ActionController@login");
     Route::get('/logout', 'ActionController@logout');
     Route::post('/search', 'ActionController@search');
+    Route::post('/upsale', 'ActionController@upsale');
     Route::post('/orderok', 'ActionController@orderok');
     Route::post('/uprstate', "ActionController@uprstate");
     Route::post('/upsstate', "ActionController@upsstate");

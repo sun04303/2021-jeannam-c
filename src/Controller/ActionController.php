@@ -133,4 +133,11 @@
                 DB::query("UPDATE deliveries SET state = 'reject' WHERE id = ?", [$id]);
             }
         }
+
+        static function upsale() {
+            $id = $_POST['id'];
+            $sale = $_POST['sale'];
+
+            DB::query("UPDATE breads SET sale = ? WHERE id = ?", [$sale, $id]);
+        }
     }

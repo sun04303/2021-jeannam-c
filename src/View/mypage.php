@@ -36,7 +36,20 @@
                                         }
                                     ?>
                                 </td>
-                                <td class="st"><?= $item->state == "order" ? "대기 중" : ($item->state == "taking" ? "배달 중" : "배달 완료") ?></td>
+                                <td class="st">
+                                    <?php
+                                        if($item->state == "order")
+                                            echo "대기 중";
+                                        elseif($item->state == "taking")
+                                            echo "배달 중";
+                                        elseif($item->state == "complete")
+                                            echo "배달 완료";
+                                        elseif($item->state == "reject")
+                                            echo "주문 거절";
+                                        else
+                                            echo "상품 준비중";
+                                    ?>
+                                </td>
                                 <td><?= $item->bn ?></td>
                                 <td><?= $item->sale == 0 ? $item->price : ceil((int)$item->price - (((int)$item->price*0.01)*(int)$item->sale)) ?></td>
                                 <td><?= $item->cnt ?></td>
@@ -111,15 +124,17 @@
                                 <div class="item">
                                     <img src="./resource<?= $item->image ?>" alt="빵" title="빵">
                                     <div><?= $item->name ?></div>
+                                    <?php if($item->sale) : ?>
+                                        <div><del><?= $item->price ?> \</del></div>
+                                        -<?= $item->sale ?>%
+                                        <?= floor((int)$item->price - ((int)$item->price * ((int)$item->sale/100))) ?> \
+                                    <?php else : ?>
+                                        <div><?= $item->price ?> \</div>
+                                    <?php endif; ?>
+                                    <button data-bid = <?= $item->id ?> class="btn btn-primary sale_view">할인</button>
                                 </div>
                             <?php endforeach; ?>
                         </div>
-
-                        <?php 
-                            echo "<pre>";
-                            var_dump($list);
-                            echo "</pre>";
-                        ?>
                     </div>
                 </div>
             <?php else : ?>
@@ -183,7 +198,7 @@
                                         <td><?= $item->bn ?></td>
                                         <td><?= $item->price ?></td>
                                         <td><?= $item->cnt ?></td>
-                                        <td class="st"><button class="btn btn-promary" data-id="<?= $item->delid ?>"><?= $item->state == "accept" ? "수락" : ($item->state == "taking" ? "완료" : "완료한 배달") ?></button></td>
+                                        <td class="st"><button class="btn btn-primary" data-id="<?= $item->delid ?>"><?= $item->state == "accept" ? "수락" : ($item->state == "taking" ? "완료" : "완료한 배달") ?></button></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

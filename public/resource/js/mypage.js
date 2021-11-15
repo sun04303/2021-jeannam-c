@@ -141,6 +141,24 @@ window.addEventListener('load', e => {
                 })
             })
 
+            document.querySelectorAll('.sale_view').forEach(item => {
+                item.addEventListener('click', e => {
+                    let sale = prompt("할인률을 입력해주세요. (0~99%)")
+
+                    $.ajax({
+                        url: `/upsale`,
+                        method : 'post',
+                        data : {
+                            id : e.target.dataset.bid,
+                            sale
+                        },
+                        success : () => {
+                            location.reload()
+                        }
+                    })
+                })
+            })
+
             break
         
         default:

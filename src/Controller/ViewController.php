@@ -45,8 +45,7 @@
                                           RIGHT JOIN (SELECT * FROM stores WHERE user_id = ?) AS s ON b.store_id = s.id", [$_SESSION['user']->id]);
                     
                     $list = DB::fetchAll("SELECT * FROM
-                                          (SELECT * FROM stores WHERE user_id = ?) AS s
-                                          LEFT JOIN (SELECT id AS delid, store_id, orderer_id, driver_id, state FROM deliveries) AS d ON s.id = d.store_id
+                                          (SELECT id AS delid, store_id, orderer_id, driver_id, state FROM deliveries WHERE store_id = ?) AS d
                                           LEFT JOIN delivery_items AS di ON d.delid = di.delivery_id
                                           LEFT JOIN (SELECT id, sale, name AS bn FROM breads) AS b ON b.id = di.bread_id
                                           LEFT JOIN users AS u ON u.id = d.orderer_id
